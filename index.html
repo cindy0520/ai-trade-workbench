@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>差評變商機｜AI 出海決策工作台</title>
+<style>
+:root{--bg:#f1f2f3;--paper:#fff;--ink:#1d2024;--muted:#70757c;--line:#dedfe2;--soft:#f7f7f8;--dark:#24272b;--dark2:#34383d;--green:#3d735e;--gold:#8a6a25;--red:#a24d55;--shadow:0 7px 24px rgba(20,25,30,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:flex}.side{width:250px;background:linear-gradient(180deg,#292c30,#202225);color:#fff;position:fixed;inset:0 auto 0 0;padding:24px 15px;z-index:5}
+.logo{font-size:20px;font-weight:850}.logo span{color:#cfd3d7}.tag{font-size:11px;color:#969ca3;margin-top:5px}.nav{margin-top:32px}.nav button{width:100%;display:block;text-align:left;border:0;background:transparent;color:#aeb4ba;border-radius:9px;padding:12px 13px;margin:3px 0}.nav button:hover,.nav button.active{background:#3a3e43;color:#fff}.nav .group{font-size:10px;color:#6f767d;padding:18px 13px 7px;letter-spacing:1px}
+.main{margin-left:250px;width:calc(100% - 250px);padding:25px 34px 60px}.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}.eyebrow{font-size:10px;font-weight:800;color:#7b8187;letter-spacing:1.5px}.title{font-size:28px;font-weight:850;margin:5px 0}.desc{font-size:13px;color:var(--muted);line-height:1.6}.demo{font-size:10px;border:1px solid var(--line);background:#fff;padding:7px 11px;border-radius:99px;color:#666;box-shadow:var(--shadow)}
+.workflow{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 15px;display:flex;gap:6px;align-items:center;margin-bottom:16px;box-shadow:var(--shadow)}.wstep{flex:1;text-align:center;padding:8px;border-radius:8px;color:#858a90;font-size:11px}.wstep.active{background:#2b2e32;color:#fff}.wline{width:18px;height:1px;background:#d4d6d8}
+.section{display:none}.section.active{display:block}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.two{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:17px;box-shadow:var(--shadow);margin-bottom:14px}.kpi{font-size:25px;font-weight:850;margin-top:6px}.label{font-size:10px;color:var(--muted)}h2{font-size:16px;margin:0 0 13px}h3{font-size:14px;margin:7px 0}.small{font-size:11px;color:var(--muted);line-height:1.6}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #ececef;font-size:12px}.row:last-child{border-bottom:0}.tagpill{font-size:10px;padding:4px 8px;border-radius:99px;background:#eef0f1;color:#5f656b}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+.field{margin:10px 0}.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid #d7d9dc;background:#fafafa;border-radius:8px;padding:10px;color:#24272b}.field textarea{min-height:90px;resize:vertical}.twofields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;background:#292c30;color:#fff;border-radius:8px;padding:10px 13px;font-weight:750;font-size:12px}.btn.light{background:#eceeef;color:#2d3034}.btn.greenbtn{background:#467461}.btn.goldbtn{background:#8a6a25}.btn:disabled{opacity:.4;cursor:not-allowed}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.notice{background:#f6f7f7;border-left:3px solid #6c7278;padding:11px 12px;border-radius:7px;font-size:11px;line-height:1.65;margin-top:11px}.warning{background:#faf4e6;border-left-color:#9a7427;color:#70551c}.success{background:#edf5f1;border-left-color:#4a7b67;color:#38634f}
+.progress{height:5px;background:#e8e9eb;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:#565c62}.score{font-size:40px;font-weight:900}.score small{font-size:11px;color:var(--muted)}
+.check{display:flex;align-items:flex-start;gap:9px;padding:10px 0;border-bottom:1px solid #eee}.check input{margin-top:3px}.check b{font-size:12px}.check span{display:block;font-size:10px;color:var(--muted);margin-top:3px}
+table{width:100%;border-collapse:collapse;font-size:11px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ececef}th{color:#73787e;font-weight:600}.rank{font-weight:850}.rank1{color:#3f705d}
+.prompt{background:#272a2e;color:#e7e9eb;border-radius:9px;padding:14px;font:11px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px}
+.barlist .barrow{display:grid;grid-template-columns:90px 1fr 45px;gap:8px;align-items:center;margin:12px 0;font-size:10px}.bar{height:8px;background:#e7e8ea;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#62686e}
+.modal{position:fixed;inset:0;background:rgba(20,22,25,.48);display:none;align-items:center;justify-content:center;z-index:20;padding:20px}.modal.show{display:flex}.modalbox{background:#fff;border-radius:14px;width:min(680px,100%);max-height:85vh;overflow:auto;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+@media(max-width:900px){.side{position:static;width:100%;height:auto}.app{display:block}.main{margin:0;width:100%;padding:18px}.nav{display:flex;overflow:auto}.nav .group{display:none}.nav button{min-width:max-content}.grid4,.grid3,.two{grid-template-columns:1fr}.workflow{overflow:auto}.wstep{min-width:105px}.twofields{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="logo">Insight<span>2</span>Market AI</div><div class="tag">差評變商機｜AI 出海決策工作台</div>
+<div class="nav">
+<button class="active" data-tab="home">⌂ 工作台首頁</button>
+<button data-tab="s1">① 痛點歸因</button>
+<button data-tab="s2">② 成本沙盒</button>
+<button data-tab="s3">③ 概念驗證</button>
+<button data-tab="s4">④ 決策輸出</button>
+<div class="group">SYSTEM</div><button data-tab="logic">Prompt & 系統邏輯</button>
+<button data-tab="saved">已儲存方案</button>
+</div>
+</aside>
+
+<main class="main">
+<div class="top"><div><div class="eyebrow">AI EXPORT DECISION WORKBENCH</div><div class="title">差評變商機｜幫臺灣產品找到可以贏的地方</div><div class="desc">一個從「競品抱怨」一路走到「產品改善、財務可行性、概念驗證與出海企劃」的互動決策工作台。</div></div><div class="demo">示範資料｜MagSafe Power Bank</div></div>
+
+<div class="workflow">
+<div class="wstep active" id="ws1">01 痛點</div><div class="wline"></div><div class="wstep" id="ws2">02 財務</div><div class="wline"></div><div class="wstep" id="ws3">03 驗證</div><div class="wline"></div><div class="wstep" id="ws4">04 輸出</div>
+</div>
+
+<section id="home" class="section active">
+<div class="grid4">
+<div class="card"><div class="label">評論樣本</div><div class="kpi">4,280</div><div class="small">Amazon US Top 3 競品｜1–3 星</div></div>
+<div class="card"><div class="label">最高改善價值</div><div class="kpi">91.5</div><div class="small">配件與即用性</div></div>
+<div class="card"><div class="label">改善款邊際毛利</div><div class="kpi green">$14.14</div><div class="small">企畫書示範值</div></div>
+<div class="card"><div class="label">損益平衡</div><div class="kpi green">285 件</div><div class="small">首批 1,000 件</div></div>
+</div>
+<div class="two">
+<div>
+<div class="card"><h2>這個產品要先解決什麼？</h2><div class="small">從 4,280 則低星評論中，系統先剔除物流等非產品責任，再將剩餘抱怨轉成工程改善機會。</div>
+<div class="barlist"><div class="barrow"><span>配件／即用</span><div class="bar"><i style="width:92%"></i></div><b>91.5</b></div><div class="barrow"><span>規格／手感</span><div class="bar"><i style="width:84%"></i></div><b>84.2</b></div><div class="barrow"><span>散熱／體驗</span><div class="bar"><i style="width:72%"></i></div><b>72.0</b></div></div>
+<div class="actions"><button class="btn" onclick="go('s1')">開始分析 →</button><button class="btn light" onclick="showModal('how')">怎麼運作？</button></div></div>
+<div class="card"><h2>系統核心</h2><div class="grid3"><div><span class="tagpill">LLM</span><h3>理解負評</h3><div class="small">DeepSeek-R1 / GPT-4o</div></div><div><span class="tagpill">RAG</span><h3>限制建議</h3><div class="small">BOM / MOQ / 製造規範</div></div><div><span class="tagpill">ENGINE</span><h3>算出可行性</h3><div class="small">成本＋運費＋毛利</div></div></div></div>
+</div>
+<div>
+<div class="card"><h2>本次工作流程</h2><div class="row"><span>① 痛點歸因</span><span class="tagpill">待執行</span></div><div class="row"><span>② 成本沙盒</span><span class="tagpill">待執行</span></div><div class="row"><span>③ 概念驗證</span><span class="tagpill">待執行</span></div><div class="row"><span>④ 決策輸出</span><span class="tagpill">待執行</span></div><div class="notice">核心不是「AI 生成一個產品」，而是讓每一步都有輸入、規則、計算與輸出。</div></div>
+<div class="card"><h2>案例產品</h2><div class="row"><span>產品</span><b>MagSafe Power Bank</b></div><div class="row"><span>目標市場</span><b>Amazon US</b></div><div class="row"><span>製造優勢</span><b>MIT Taiwan</b></div></div>
+</div>
+</div>
+</section>
+
+<section id="s1" class="section">
+<div class="two">
+<div>
+<div class="card"><h2>① 先看競品與負評</h2><div class="small">輸入競品 ASIN 或產品關鍵字。示範案例已載入企畫書中的 4,280 則低星評論。</div>
+<div class="twofields"><div class="field"><label>競品關鍵字</label><input id="keyword" value="MagSafe Power Bank"></div><div class="field"><label>評論範圍</label><select><option>1–3 星</option><option>1–2 星</option><option>全部評論</option></select></div></div>
+<div class="actions"><button class="btn" onclick="runS1()">執行 AI 負評分析</button><button class="btn light" onclick="showModal('prompt1')">查看 Prompt</button></div></div>
+<div class="card"><h2>AI 分析結果｜痛點價值矩陣</h2><table><thead><tr><th>優先</th><th>痛點</th><th>頻率</th><th>負向分</th><th>價值分</th><th>建議</th></tr></thead><tbody>
+<tr><td class="rank rank1">P1</td><td><b>配件與即用性</b><br><span class="small">線材過長／未附短線</span></td><td>38.4%</td><td>-0.88</td><td><b>91.5</b></td><td>15cm 短線＋絨布袋</td></tr>
+<tr><td class="rank">P2</td><td><b>規格與手感</b><br><span class="small">遮鏡頭／邊角過利</span></td><td>29.1%</td><td>-0.76</td><td><b>84.2</b></td><td>倒角內縮 2.5mm</td></tr>
+<tr><td class="rank">P3</td><td><b>散熱與體驗</b><br><span class="small">充電發燙</span></td><td>18.7%</td><td>-0.65</td><td><b>72.0</b></td><td>石墨烯導熱片</td></tr>
+</tbody></table>
+<div id="s1msg" class="notice">等待執行。系統會先把物流損壞等第三方因素排除，再產生改善優先級。</div></div>
+</div>
+<div>
+<div class="card"><h2>AI 角色設定</h2><div class="notice">ROLE：跨境產品工程師<br>GOAL：從負評找出「企業能實際改善」的產品缺陷。</div><div class="check"><input type="checkbox" checked><div><b>過濾物流／配送</b><span>第三方責任，不列為產品改善項。</span></div></div><div class="check"><input type="checkbox" checked><div><b>屬性級分類 ABSA</b><span>包裝／容量／配件／使用／品質。</span></div></div><div class="check"><input type="checkbox" checked><div><b>工程可改良度 1–100</b><span>作為改善優先級依據。</span></div></div></div>
+<div class="card"><h2>下一步</h2><div class="small">選擇你要改善的痛點，系統會把它帶進成本沙盒。</div><div class="check"><input id="c1" type="checkbox" checked><div><b>15cm 編織短線＋收納袋</b><span>+ $1.25 BOM</span></div></div><div class="check"><input id="c2" type="checkbox" checked><div><b>鏡頭避讓倒角 2.5mm</b><span>尺寸微調</span></div></div><div class="actions"><button class="btn" onclick="go('s2')">帶入成本沙盒 →</button></div></div>
+</div></div>
+</section>
+
+<section id="s2" class="section">
+<div class="two">
+<div>
+<div class="card"><h2>② 成本沙盒｜改一個條件，重新算一次</h2><div class="small">這裡不是讓 AI 自己猜價格，而是把微創新參數帶進公式。</div>
+<div class="twofields"><div class="field"><label>基準售價 USD</label><input id="p2" type="number" value="29.99" oninput="calc()"></div><div class="field"><label>改善後售價 USD</label><input id="p3" type="number" value="34.99" oninput="calc()"></div><div class="field"><label>基準 BOM USD</label><input id="b2" type="number" value="5.20" oninput="calc()"></div><div class="field"><label>改善後 BOM USD</label><input id="b3" type="number" value="6.45" oninput="calc()"></div><div class="field"><label>FBA 單件 USD</label><input id="fba2" type="number" value="4.15" oninput="calc()"></div><div class="field"><label>改善後厚度（吋）</label><input id="thick2" type="number" step=".01" value=".70" oninput="calc()"></div></div>
+<div class="actions"><button class="btn" onclick="calc()">重新試算</button><button class="btn light" onclick="document.getElementById('thick2').value='.74';calc()">模擬接近門檻</button></div>
+<div id="fbaWarn" class="notice warning" style="display:none">⚠ 物流跳階風險：厚度已接近 0.75 吋門檻。建議「減薄包裝 2mm」再進行驗證。</div></div>
+<div class="grid3"><div class="card"><div class="label">改善前毛利</div><div id="mBefore" class="kpi">$10.64</div></div><div class="card"><div class="label">改善後毛利</div><div id="mAfter" class="kpi green">$14.39</div></div><div class="card"><div class="label">改善後毛利率</div><div id="rAfter" class="kpi">41.1%</div></div></div>
+</div>
+<div>
+<div class="card"><h2>財務決策規則</h2><div class="row"><span>材料成本</span><b>即時帶入</b></div><div class="row"><span>重量／材積</span><b>同步檢查</b></div><div class="row"><span>0.75 吋</span><b class="gold">跳階警示</b></div><div class="row"><span>毛利</span><b>重新計算</b></div><div class="notice success">企畫書案例：改善後仍維持 Large Standard 最低級距，示範 FBA 為 $4.15。</div></div>
+<div class="card"><h2>方案是否通過？</h2><div id="decision" class="score">PASS <small>可進入概念驗證</small></div><div class="progress"><i id="profitbar" style="width:82%"></i></div><div class="actions"><button class="btn" onclick="go('s3')">進入概念驗證 →</button></div></div>
+</div></div>
+</section>
+
+<section id="s3" class="section">
+<div class="two">
+<div>
+<div class="card"><h2>③ 概念驗證｜先測再開模</h2><div class="small">Visual AI 先產出微創新概念圖，再由 A/B 盲測驗證溢價接受度。</div>
+<div class="grid3"><div class="card" style="box-shadow:none"><span class="tagpill">OPTION A</span><h3>標準款</h3><div class="kpi">$29.99</div><div class="small">單機／標準設計</div></div><div class="card" style="box-shadow:none;border-color:#c9d7d1"><span class="tagpill">OPTION B</span><h3>微創新款</h3><div class="kpi">$34.99</div><div class="small">15cm 短線＋收納袋＋鏡頭避讓</div></div><div class="card" style="box-shadow:none"><span class="tagpill">TARGET</span><h3>認同率</h3><div class="kpi green">&gt;72%</div><div class="small">企畫書驗證目標</div></div></div>
+<div class="actions"><button class="btn" onclick="generateTest()">生成 PickFu 盲測題庫</button><button class="btn light" onclick="showModal('visual')">查看 Visual AI 規格</button></div></div>
+<div class="card"><h2>盲測題庫</h2><div id="questions"><div class="row"><span>尚未生成題庫</span><span class="tagpill">WAITING</span></div></div></div>
+</div>
+<div>
+<div class="card"><h2>驗證邏輯</h2><div class="check"><input type="checkbox" checked><div><b>功能偏好</b><span>哪個設計更能解決既有痛點？</span></div></div><div class="check"><input type="checkbox" checked><div><b>價格接受度</b><span>$29.99 vs $34.99。</span></div></div><div class="check"><input type="checkbox" checked><div><b>購買理由</b><span>配件／鏡頭／散熱哪項最有感？</span></div></div></div>
+<div class="card"><h2>概念驗證結果</h2><div id="testscore" class="score">— <small>等待盲測</small></div><div class="progress"><i id="testbar" style="width:0%"></i></div><div class="notice">示範模型不宣稱已取得真實消費者調查結果；72% 是企畫書設定的驗證目標。</div></div>
+</div></div>
+</section>
+
+<section id="s4" class="section">
+<div class="two">
+<div>
+<div class="card"><h2>④ 一鍵整合出海決策</h2><div class="small">前三階段完成後，系統把結果轉成產品定位、Listing、GEO Schema 與 B2B 提案素材。</div>
+<div class="row"><span>產品定位</span><b>MIT Slim Magnetic Power Bank</b></div><div class="row"><span>核心痛點</span><b>線材笨重／遮鏡頭</b></div><div class="row"><span>改善方案</span><b>15cm 短線＋收納袋＋鏡頭避讓</b></div><div class="row"><span>示範售價</span><b>$34.99 USD</b></div><div class="row"><span>通路</span><b>Amazon US＋B2B</b></div>
+<div class="actions"><button class="btn" onclick="generateReport()">生成完整決策報告</button><button class="btn light" onclick="savePlan()">儲存方案 A</button></div></div>
+<div class="card"><h2>Amazon Listing｜AI 草稿</h2><div id="listing"><div class="notice">按「生成完整決策報告」後產生。</div></div></div>
+</div>
+<div>
+<div class="card"><h2>GEO｜結構化資料</h2><div id="schema" class="prompt">等待生成…</div></div>
+<div class="card"><h2>決策結論</h2><div id="finalStatus" class="notice">尚未完成前三階段。</div><div class="actions"><button class="btn light" onclick="showModal('audit')">查看防幻覺查核</button></div></div>
+</div></div>
+</section>
+
+<section id="logic" class="section">
+<div class="card"><h2>Prompt 與系統邏輯</h2><div class="grid3">
+<div class="card"><span class="tagpill">PROMPT 01</span><h3>負評過濾</h3><div class="prompt">ROLE: 跨境產品工程師
+FILTER: 物流／配送等第三方責任
+CLASSIFY: 包裝／容量／配件／使用／品質
+SCORE: 工程可改良度 1–100
+OUTPUT: 改善優先級＋微創新方案</div></div>
+<div class="card"><span class="tagpill">PROMPT 02</span><h3>動態財務</h3><div class="prompt">INPUT: BOM／重量／厚度／售價
+CHECK: 0.75 吋跳階門檻
+CALCULATE: 邊際毛利／毛利率／BEP
+ALERT: 接近門檻即預警
+OUTPUT: 財務可行性</div></div>
+<div class="card"><span class="tagpill">PROMPT 03</span><h3>GEO 轉譯</h3><div class="prompt">INPUT: 痛點改善＋MIT 實體標籤
+GENERATE: Listing／關鍵字／Product Schema
+VERIFY: Citation & Factuality
+OUTPUT: AI 搜尋可理解的產品資訊</div></div>
+</div></div>
+<div class="card"><h2>端到端架構</h2><div class="row"><span>資料層</span><b>Amazon Reviews / Review ID / ASIN</b></div><div class="row"><span>AI 層</span><b>LLM＋ABSA＋RAG</b></div><div class="row"><span>計算層</span><b>Python Dynamic Pricing Engine＋FBA</b></div><div class="row"><span>驗證層</span><b>Visual AI＋PickFu</b></div><div class="row"><span>輸出層</span><b>Listing＋JSON-LD＋B2B Proposal</b></div></div>
+</section>
+
+<section id="saved" class="section">
+<div class="card"><h2>已儲存方案</h2><div id="savedList"><div class="notice">目前沒有儲存方案。完成分析後可按「儲存方案 A」。</div></div></div>
+</section>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox"><div id="modalContent"></div><div class="actions"><button class="btn" onclick="closeModal()">關閉</button></div></div></div>
+
+<script>
+const tabs=[...document.querySelectorAll('.nav button[data-tab]')];
+tabs.forEach(b=>b.onclick=()=>go(b.dataset.tab));
+function go(id){tabs.forEach(x=>x.classList.toggle('active',x.dataset.tab===id));document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));if(['s1','s2','s3','s4'].includes(id)){let n=+id.slice(1);for(let i=1;i<=4;i++)document.getElementById('ws'+i).classList.toggle('active',i===n)}}
+function showModal(type){let c={how:`<h2>這個模型怎麼運作？</h2><p class="small">先輸入競品／評論條件 → AI 過濾非產品責任 → 找出高價值痛點 → 勾選改善方案 → 動態試算成本與物流 → 生成概念驗證 → 最後產出 Listing、GEO Schema 與出海決策。</p>`,prompt1:`<h2>Prompt 01｜產品工程師</h2><div class="prompt">你是一名跨境產品工程師。請分析 1–3 星評論。嚴格排除物流配送延遲、外部運輸損壞等第三方責任；將產品缺陷依包裝／容量／配件／使用／品質分類；依頻率、負向程度與工程可改良度計算優先級；最後提出能被臺灣供應鏈執行的微創新方案。</div>`,visual:`<h2>Visual AI 規格</h2><p class="small">以 Midjourney v6 / Flux.1 產出消光質感、鏡頭避讓微弧機身、15cm 短線與收納袋的 3D 概念渲染圖，免開模先取得測試素材。</p>`,audit:`<h2>三重防幻覺與真實性查核</h2><div class="row"><span>① 數據來源可溯</span><b>ASIN／Review ID／時間</b></div><div class="row"><span>② 物流費率校驗</span><b>依官方費率公式</b></div><div class="row"><span>③ 人工覆核</span><b>MOQ／產線規格</b></div><div class="notice warning">正式上線時，只有完成工程可行性查核，才能解鎖最終企劃書。</div>`}[type];document.getElementById('modalContent').innerHTML=c;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function runS1(){document.getElementById('s1msg').className='notice success';document.getElementById('s1msg').innerHTML='<b>分析完成。</b>已排除物流等第三方因素，並將產品缺陷轉成 P1–P3 改善優先級。現在可以把 P1/P2 帶進成本沙盒。';}
+function calc(){let pb=+p2.value-b2.value-fba2.value,pa=+p3.value-b3.value-fba2.value,rate=pa/+p3.value*100;document.getElementById('mBefore').textContent='$'+pb.toFixed(2);document.getElementById('mAfter').textContent='$'+pa.toFixed(2);document.getElementById('rAfter').textContent=rate.toFixed(1)+'%';let t=+thick2.value;document.getElementById('fbaWarn').style.display=t>=.72?'block':'none';document.getElementById('decision').innerHTML=(t<.75&&pa>10)?'PASS <small>可進入概念驗證</small>':'REVIEW <small>需要調整成本／尺寸</small>';document.getElementById('profitbar').style.width=Math.min(100,rate*2)+'%';}
+function generateTest(){document.getElementById('questions').innerHTML='<div class="row"><span>Q1｜哪個產品更能解決線材攜帶不便？</span><b>A / B</b></div><div class="row"><span>Q2｜你願意為改善後方案支付多少？</span><b>$30 / $35 / $40+</b></div><div class="row"><span>Q3｜哪項改善最影響購買意願？</span><b>配件／鏡頭／散熱</b></div>';document.getElementById('testscore').innerHTML='72% <small>目標認同率</small>';document.getElementById('testbar').style.width='72%';}
+function generateReport(){document.getElementById('listing').innerHTML='<div class="label">TITLE</div><p><b>[Brand] Magnetic Power Bank with Integrated 15cm Fast-Charging Cable, Ultra-Slim No-Camera-Block Design</b></p><div class="label">BULLET</div><p class="small">Based on 4,000+ reviews, custom 15cm tangle-free cable and travel pouch included.</p>';document.getElementById('schema').textContent=`{\n  "@context": "https://schema.org/",\n  "@type": "Product",\n  "name": "MIT Slim Magnetic Power Bank",\n  "offers": {"price":"34.99","priceCurrency":"USD"},\n  "additionalProperty": [\n    {"name":"Problem Solved","value":"Bulky cords & camera blockage"},\n    {"name":"Manufacturing Origin","value":"Taiwan"}\n  ]\n}`;document.getElementById('finalStatus').className='notice success';document.getElementById('finalStatus').innerHTML='<b>決策報告完成。</b>已串聯痛點、財務、概念驗證與 GEO，可進入評審展示。';go('s4');}
+function savePlan(){let key='i2m_saved';let old=JSON.parse(localStorage.getItem(key)||'[]');old.unshift({time:new Date().toLocaleString(),product:'MIT Slim Magnetic Power Bank',price:'$34.99',margin:'$14.14'});localStorage.setItem(key,JSON.stringify(old.slice(0,5)));renderSaved();alert('方案 A 已儲存。');}
+function renderSaved(){let a=JSON.parse(localStorage.getItem('i2m_saved')||'[]');document.getElementById('savedList').innerHTML=a.length?a.map((x,i)=>`<div class="row"><span><b>方案 A-${i+1}</b><br><span class="small">${x.time}｜${x.product}</span></span><b class="green">${x.price}｜毛利 ${x.margin}</b></div>`).join(''):'<div class="notice">目前沒有儲存方案。</div>';}
+renderSaved();calc();
+</script>
+</body>
+</html>
